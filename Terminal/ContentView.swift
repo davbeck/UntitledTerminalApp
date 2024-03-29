@@ -2,9 +2,10 @@ import SwiftUI
 
 @MainActor
 final class PromptCoordinator {
-	var onExec: (String) -> Void = { _ in }
+	var onExec: (Command) -> Void = { _ in }
 
-	func exec(_ command: String) {
+	func exec(_ input: String) {
+		guard let command = Command.parse(input) else { return }
 		onExec(command)
 	}
 }

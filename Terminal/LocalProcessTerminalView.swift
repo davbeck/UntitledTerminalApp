@@ -1,11 +1,11 @@
 import AppKit
+import Foundation
 import SwiftTerm
 import SwiftUI
-import Foundation
 
 struct LocalProcessTerminalView: NSViewRepresentable {
 	var promptCoordinator: PromptCoordinator
-	
+
 	func makeCoordinator() -> Coordinator {
 		Coordinator()
 	}
@@ -13,20 +13,20 @@ struct LocalProcessTerminalView: NSViewRepresentable {
 	func makeNSView(context: Context) -> SwiftTerm.LocalProcessTerminalView {
 		let view = SwiftTerm.LocalProcessTerminalView(frame: .zero)
 		view.processDelegate = context.coordinator
-		
+
 		let terminal = view.getTerminal()
 		view.cursorStyleChanged(source: terminal, newStyle: .steadyBlock)
 //		view.hideCursor(source: terminal)
 		terminal.hideCursor()
 
 //		let shell = context.coordinator.getShell()
-////		let shell = "/bin/zsh"
+		////		let shell = "/bin/zsh"
 //		let shellIdiom = "-" + NSString(string: shell).lastPathComponent
 //		FileManager.default.changeCurrentDirectoryPath(FileManager.default.homeDirectoryForCurrentUser.path)
 //		var environment = Terminal.getEnvironmentVariables(termName: "xterm-256color")
 //		print(environment)
-////		environment.append("PWD=\(FileManager.default.homeDirectoryForCurrentUser.path)")
-////		view.getTerminal().hostCurrentDirectory
+		////		environment.append("PWD=\(FileManager.default.homeDirectoryForCurrentUser.path)")
+		////		view.getTerminal().hostCurrentDirectory
 //		view.startProcess(
 //			executable: shell,
 //			environment: environment,
@@ -38,9 +38,12 @@ struct LocalProcessTerminalView: NSViewRepresentable {
 
 	func updateNSView(_ view: SwiftTerm.LocalProcessTerminalView, context: Context) {
 		promptCoordinator.onExec = { command in
-			let parts = command.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
-			guard let command = parts.first else { return }
-			view.startProcess(executable: command, args: Array(parts.dropFirst()))
+			view.feed(text: "> " + command.input + "\r\n")
+			
+			view.startProcess(
+				executable: command.executable,
+				args: command.arguments
+			)
 		}
 	}
 
