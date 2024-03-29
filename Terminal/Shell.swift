@@ -2,7 +2,6 @@ import Foundation
 import SwiftTerm
 import ShellSyntax
 
-@MainActor
 @Observable
 class Shell {
 	var workingDirectory: URL = FileManager.default.homeDirectoryForCurrentUser

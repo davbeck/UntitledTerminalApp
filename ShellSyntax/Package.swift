@@ -4,20 +4,26 @@
 import PackageDescription
 
 let package = Package(
-    name: "ShellSyntax",
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "ShellSyntax",
-            targets: ["ShellSyntax"]),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "ShellSyntax"),
-        .testTarget(
-            name: "ShellSyntaxTests",
-            dependencies: ["ShellSyntax"]),
-    ]
+	name: "ShellSyntax",
+	products: [
+		// Products define the executables and libraries a package produces, making them visible to other packages.
+		.library(
+			name: "ShellSyntax",
+			targets: ["ShellSyntax"]
+		),
+	],
+	targets: [
+		// Targets are the basic building blocks of a package, defining a module or a test suite.
+		// Targets can depend on other targets in this package and products from dependencies.
+		.target(
+			name: "ShellSyntax",
+			swiftSettings: [
+				.enableExperimentalFeature("StrictConcurrency"),
+			]
+		),
+		.testTarget(
+			name: "ShellSyntaxTests",
+			dependencies: ["ShellSyntax"]
+		),
+	]
 )
