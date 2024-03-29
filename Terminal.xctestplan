@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "1A3498F2-E21C-4A29-A1C2-356A01524301",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Terminal.xcodeproj",
+      "identifier" : "111B31822BB5162300A3F6C2",
+      "name" : "Terminal"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Terminal.xcodeproj",
+        "identifier" : "111B31932BB5162500A3F6C2",
+        "name" : "TerminalTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Terminal.xcodeproj",
+        "identifier" : "111B319D2BB5162500A3F6C2",
+        "name" : "TerminalUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

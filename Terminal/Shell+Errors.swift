@@ -1,10 +1,3 @@
-//
-//  Shell+Errors.swift
-//  Terminal
-//
-//  Created by David Beck on 3/28/24.
-//
-
 import Foundation
 
 protocol ShellError: Error {
@@ -28,5 +21,15 @@ struct NotADirectory: Error {
 extension NotADirectory: ShellError {
 	var feedOutput: String {
 		"'\(path)' is not a directory"
+	}
+}
+
+struct UnknownCommand: Error {
+	var command: String
+}
+
+extension UnknownCommand: ShellError {
+	var feedOutput: String {
+		"Unknown command: \(command)"
 	}
 }

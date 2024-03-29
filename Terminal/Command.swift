@@ -1,14 +1,14 @@
 import Foundation
 
-enum Command {
+enum Command: Equatable {
 	case executable(executable: String, arguments: [String])
 	case changeDirectory(path: String?)
 	
 	var name: String {
 		switch self {
-		case .executable(let executable, let arguments):
+		case .executable(let executable, _):
 			return executable
-		case .changeDirectory(let path):
+		case .changeDirectory:
 			return "cd"
 		}
 	}
@@ -54,13 +54,12 @@ enum Command {
 
 		guard let executable = tokens.first else { return nil }
 
-		let operation: Operation
 		switch executable {
 		case "cd":
-			guard let path = tokens.dropFirst().first else { return nil }
+			guard let path = tokens.dropFirst().last else { return nil }
 			return .changeDirectory(path: path)
 		default:
-			return .executable(executable: executable, arguments: tokens.dropLast())
+			return .executable(executable: executable, arguments: Array(tokens.dropFirst()))
 		}
 	}
 }

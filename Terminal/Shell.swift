@@ -5,12 +5,39 @@ import SwiftTerm
 @Observable
 class Shell {
 	var workingDirectory: URL = FileManager.default.homeDirectoryForCurrentUser
-	var environment: [String] = Terminal.getEnvironmentVariables(termName: "xterm-256color")
+	var environment: [String:String]
 
 	@ObservationIgnored
 	var startProcess: (_ executable: String, _ arguments: [String], _ environment: [String], _ workingDirectory: String) -> Void = { _, _, _, _ in }
 	@ObservationIgnored
 	var feed: (_ text: String) -> Void = { _ in }
+	
+	init() {
+		// TODO: load env from /etc/paths, /etc/paths.d and configs
+		environment = ProcessInfo.processInfo.environment
+		environment["TERM"] = "xterm-256color"
+		environment["COLORTERM"] = "truecolor"
+		environment["LANG"] = "en_US.UTF-8"
+	}
+	
+	private func resolve(command: String) throws -> String {
+		let path = self.environment["PATH"]
+		print(path)
+		let paths = path?.components(separatedBy: ":") ?? []
+		for path in paths {
+			let pathURL = URL(filePath: path, directoryHint: .isDirectory).absoluteURL
+			print("pathURL", pathURL)
+			let resolved = URL(filePath: command, relativeTo: pathURL).absoluteURL
+			print("resolved", resolved)
+			
+			if FileManager.default.fileExists(atPath: resolved.path()) {
+				print("found in", path)
+				return resolved.path()
+			}
+		}
+		
+		throw UnknownCommand(command: command)
+	}
 
 	func exec(_ input: String) {
 		guard let command = Command.parse(input) else { return }
@@ -20,6 +47,9 @@ class Shell {
 
 			switch command {
 			case let .executable(executable: executable, arguments: arguments):
+				let executable = try self.resolve(command: executable)
+				
+				let environment = self.environment.map { "\($0.key)=\($0.value)" }
 				startProcess(
 					executable,
 					arguments,

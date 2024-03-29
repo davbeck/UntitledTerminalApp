@@ -15,6 +15,7 @@ struct ContentView: View {
 
 				TextField("Type a command...", text: $prompt, axis: .vertical)
 					.textFieldStyle(.plain)
+					.autocorrectionDisabled(true)
 					.onSubmit(of: .text) {
 						if NSEvent.modifierFlags.contains(.shift) {
 							prompt += "\n"
