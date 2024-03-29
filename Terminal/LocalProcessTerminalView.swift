@@ -4,7 +4,7 @@ import SwiftTerm
 import SwiftUI
 
 struct LocalProcessTerminalView: NSViewRepresentable {
-	var promptCoordinator: PromptCoordinator
+	var shell: Shell
 
 	func makeCoordinator() -> Coordinator {
 		Coordinator()
@@ -37,14 +37,20 @@ struct LocalProcessTerminalView: NSViewRepresentable {
 	}
 
 	func updateNSView(_ view: SwiftTerm.LocalProcessTerminalView, context: Context) {
-		promptCoordinator.onExec = { command in
-			view.feed(text: "> " + command.input + "\r\n")
-			
+		shell.feed = view.feed
+		shell.startProcess = {
 			view.startProcess(
-				executable: command.executable,
-				args: command.arguments
+				executable: $0,
+				args: $1,
+				environment: $2,
+				workingDirectory: $3
 			)
 		}
+//		promptCoordinator.onExec = { [weak promptCoordinator] input, command in
+//			guard let promptCoordinator else { return }
+//
+//			view.startProcess()
+//		}
 	}
 
 	final class Coordinator {

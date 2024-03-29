@@ -1,10 +1,17 @@
 import Foundation
 
-struct Command {
-	var input: String
+enum Command {
+	case executable(executable: String, arguments: [String])
+	case changeDirectory(path: String?)
 	
-	var executable: String
-	var arguments: [String]
+	var name: String {
+		switch self {
+		case .executable(let executable, let arguments):
+			return executable
+		case .changeDirectory(let path):
+			return "cd"
+		}
+	}
 
 	static func parse(_ input: String) -> Command? {
 		var tokens: [String] = []
@@ -47,10 +54,13 @@ struct Command {
 
 		guard let executable = tokens.first else { return nil }
 
-		return self.init(
-			input: input,
-			executable: executable,
-			arguments: .init(tokens.dropFirst())
-		)
+		let operation: Operation
+		switch executable {
+		case "cd":
+			guard let path = tokens.dropFirst().first else { return nil }
+			return .changeDirectory(path: path)
+		default:
+			return .executable(executable: executable, arguments: tokens.dropLast())
+		}
 	}
 }

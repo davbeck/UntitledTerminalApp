@@ -1,23 +1,13 @@
 import SwiftUI
 
 @MainActor
-final class PromptCoordinator {
-	var onExec: (Command) -> Void = { _ in }
-
-	func exec(_ input: String) {
-		guard let command = Command.parse(input) else { return }
-		onExec(command)
-	}
-}
-
-@MainActor
 struct ContentView: View {
-	@State private var coordinator = PromptCoordinator()
+	@State private var shell = Shell()
 	@State private var prompt: String = ""
 
 	var body: some View {
 		VStack(spacing: 0) {
-			LocalProcessTerminalView(promptCoordinator: coordinator)
+			LocalProcessTerminalView(shell: shell)
 
 			HStack(alignment: .firstTextBaseline) {
 				Text(">")
@@ -29,7 +19,7 @@ struct ContentView: View {
 						if NSEvent.modifierFlags.contains(.shift) {
 							prompt += "\n"
 						} else {
-							coordinator.exec(prompt)
+							shell.exec(prompt)
 							prompt = ""
 						}
 					}

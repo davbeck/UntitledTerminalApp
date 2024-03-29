@@ -14,9 +14,11 @@
 		111B31992BB5162500A3F6C2 /* TerminalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31982BB5162500A3F6C2 /* TerminalTests.swift */; };
 		111B31A32BB5162500A3F6C2 /* TerminalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31A22BB5162500A3F6C2 /* TerminalUITests.swift */; };
 		111B31A52BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */; };
-		111B31B32BB5164F00A3F6C2 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 111B31B22BB5164F00A3F6C2 /* SwiftTerm */; };
 		111B31B52BB51A3800A3F6C2 /* LocalProcessTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */; };
 		111B31B72BB606FD00A3F6C2 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31B62BB606FD00A3F6C2 /* Command.swift */; };
+		11E306342BB657770096084E /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 11E306332BB657770096084E /* SwiftTerm */; };
+		11E306362BB66BDF0096084E /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E306352BB66BDF0096084E /* Shell.swift */; };
+		11E306382BB66E560096084E /* Shell+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E306372BB66E560096084E /* Shell+Errors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +52,8 @@
 		111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalProcessTerminalView.swift; sourceTree = "<group>"; };
 		111B31B62BB606FD00A3F6C2 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
-		111B31B82BB64FAF00A3F6C2 /* SwiftTerm-main */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "SwiftTerm-main"; path = "../../../Downloads/SwiftTerm-main"; sourceTree = "<group>"; };
+		11E306352BB66BDF0096084E /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		11E306372BB66E560096084E /* Shell+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shell+Errors.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				111B31B32BB5164F00A3F6C2 /* SwiftTerm in Frameworks */,
+				11E306342BB657770096084E /* SwiftTerm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +85,6 @@
 		111B317A2BB5162300A3F6C2 = {
 			isa = PBXGroup;
 			children = (
-				111B31B82BB64FAF00A3F6C2 /* SwiftTerm-main */,
 				111B31852BB5162300A3F6C2 /* Terminal */,
 				111B31972BB5162500A3F6C2 /* TerminalTests */,
 				111B31A12BB5162500A3F6C2 /* TerminalUITests */,
@@ -106,6 +108,8 @@
 				111B31862BB5162300A3F6C2 /* TerminalApp.swift */,
 				111B31882BB5162300A3F6C2 /* ContentView.swift */,
 				111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */,
+				11E306352BB66BDF0096084E /* Shell.swift */,
+				11E306372BB66E560096084E /* Shell+Errors.swift */,
 				111B31B62BB606FD00A3F6C2 /* Command.swift */,
 				111B318A2BB5162500A3F6C2 /* Assets.xcassets */,
 				111B318F2BB5162500A3F6C2 /* Terminal.entitlements */,
@@ -156,7 +160,7 @@
 			);
 			name = Terminal;
 			packageProductDependencies = (
-				111B31B22BB5164F00A3F6C2 /* SwiftTerm */,
+				11E306332BB657770096084E /* SwiftTerm */,
 			);
 			productName = Terminal;
 			productReference = 111B31832BB5162300A3F6C2 /* Terminal.app */;
@@ -231,7 +235,7 @@
 			);
 			mainGroup = 111B317A2BB5162300A3F6C2;
 			packageReferences = (
-				111B31B12BB5164F00A3F6C2 /* XCRemoteSwiftPackageReference "SwiftTerm" */,
+				11E306322BB657770096084E /* XCRemoteSwiftPackageReference "SwiftTerm" */,
 			);
 			productRefGroup = 111B31842BB5162300A3F6C2 /* Products */;
 			projectDirPath = "";
@@ -275,6 +279,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11E306362BB66BDF0096084E /* Shell.swift in Sources */,
+				11E306382BB66E560096084E /* Shell+Errors.swift in Sources */,
 				111B31892BB5162300A3F6C2 /* ContentView.swift in Sources */,
 				111B31872BB5162300A3F6C2 /* TerminalApp.swift in Sources */,
 				111B31B52BB51A3800A3F6C2 /* LocalProcessTerminalView.swift in Sources */,
@@ -601,20 +607,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		111B31B12BB5164F00A3F6C2 /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {
+		11E306322BB657770096084E /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/migueldeicaza/SwiftTerm.git";
+			repositoryURL = "https://github.com/davbeck/SwiftTerm.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.5;
+				kind = revision;
+				revision = 8379709f939efecd8cb599467b92c20305fa3a04;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		111B31B22BB5164F00A3F6C2 /* SwiftTerm */ = {
+		11E306332BB657770096084E /* SwiftTerm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 111B31B12BB5164F00A3F6C2 /* XCRemoteSwiftPackageReference "SwiftTerm" */;
+			package = 11E306322BB657770096084E /* XCRemoteSwiftPackageReference "SwiftTerm" */;
 			productName = SwiftTerm;
 		};
 /* End XCSwiftPackageProductDependency section */
