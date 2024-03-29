@@ -1,19 +1,19 @@
 import Foundation
 
-enum Command: Equatable {
+public enum Command: Equatable {
 	case executable(executable: String, arguments: [String])
 	case changeDirectory(path: String?)
-	
-	var name: String {
+
+	public var name: String {
 		switch self {
-		case .executable(let executable, _):
-			return executable
+		case let .executable(executable, _):
+			executable
 		case .changeDirectory:
-			return "cd"
+			"cd"
 		}
 	}
 
-	static func parse(_ input: String) -> Command? {
+	public static func parse(_ input: String) -> Command? {
 		var tokens: [String] = []
 		var currentToken = ""
 		var quoteContext: Character?

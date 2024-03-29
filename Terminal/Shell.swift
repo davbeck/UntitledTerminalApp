@@ -1,5 +1,6 @@
 import Foundation
 import SwiftTerm
+import ShellSyntax
 
 @MainActor
 @Observable
@@ -22,16 +23,12 @@ class Shell {
 	
 	private func resolve(command: String) throws -> String {
 		let path = self.environment["PATH"]
-		print(path)
 		let paths = path?.components(separatedBy: ":") ?? []
 		for path in paths {
 			let pathURL = URL(filePath: path, directoryHint: .isDirectory).absoluteURL
-			print("pathURL", pathURL)
 			let resolved = URL(filePath: command, relativeTo: pathURL).absoluteURL
-			print("resolved", resolved)
 			
 			if FileManager.default.fileExists(atPath: resolved.path()) {
-				print("found in", path)
 				return resolved.path()
 			}
 		}
