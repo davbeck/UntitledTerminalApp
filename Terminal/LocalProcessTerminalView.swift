@@ -15,23 +15,8 @@ struct LocalProcessTerminalView: NSViewRepresentable {
 		view.processDelegate = context.coordinator
 
 		let terminal = view.getTerminal()
-		view.cursorStyleChanged(source: terminal, newStyle: .steadyBlock)
-//		view.hideCursor(source: terminal)
+		terminal.setCursorStyle(.steadyBlock)
 		terminal.hideCursor()
-
-//		let shell = context.coordinator.getShell()
-		////		let shell = "/bin/zsh"
-//		let shellIdiom = "-" + NSString(string: shell).lastPathComponent
-//		FileManager.default.changeCurrentDirectoryPath(FileManager.default.homeDirectoryForCurrentUser.path)
-//		var environment = Terminal.getEnvironmentVariables(termName: "xterm-256color")
-//		print(environment)
-		////		environment.append("PWD=\(FileManager.default.homeDirectoryForCurrentUser.path)")
-		////		view.getTerminal().hostCurrentDirectory
-//		view.startProcess(
-//			executable: shell,
-//			environment: environment,
-//			execName: shellIdiom
-//		)
 
 		return view
 	}
@@ -46,33 +31,9 @@ struct LocalProcessTerminalView: NSViewRepresentable {
 				workingDirectory: $3
 			)
 		}
-//		promptCoordinator.onExec = { [weak promptCoordinator] input, command in
-//			guard let promptCoordinator else { return }
-//
-//			view.startProcess()
-//		}
 	}
 
-	final class Coordinator {
-		// Returns the shell associated with the current account
-		func getShell() -> String {
-			let bufsize = sysconf(_SC_GETPW_R_SIZE_MAX)
-			guard bufsize != -1 else {
-				return "/bin/bash"
-			}
-			let buffer = UnsafeMutablePointer<Int8>.allocate(capacity: bufsize)
-			defer {
-				buffer.deallocate()
-			}
-			var pwd = passwd()
-			var result: UnsafeMutablePointer<passwd>? = UnsafeMutablePointer<passwd>.allocate(capacity: 1)
-
-			if getpwuid_r(getuid(), &pwd, buffer, bufsize, &result) != 0 {
-				return "/bin/bash"
-			}
-			return String(cString: pwd.pw_shell)
-		}
-	}
+	final class Coordinator {}
 }
 
 extension LocalProcessTerminalView.Coordinator: LocalProcessTerminalViewDelegate {
