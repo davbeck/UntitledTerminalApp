@@ -58,7 +58,7 @@ class Shell {
 						let directory = URL(
 							string: path,
 							relativeTo: workingDirectory
-						)?.absoluteURL
+						)?.standardizedFileURL
 					else {
 						return
 					}
@@ -75,7 +75,7 @@ class Shell {
 						throw NotADirectory(path: path)
 					}
 
-					workingDirectory = directory.absoluteURL
+					workingDirectory = directory
 				} else {
 					workingDirectory = FileManager.default.homeDirectoryForCurrentUser
 				}
