@@ -1,8 +1,6 @@
-//import CodeEditSourceEditor
-//import CodeEditTextView
-import SwiftUI
 import STTextView
 import STTextViewUI
+import SwiftUI
 
 struct PromptView: View {
 	var shell = Shell()
@@ -10,7 +8,17 @@ struct PromptView: View {
 	@State private var prompt: String = ""
 
 	var body: some View {
-		STTextViewRepresentable(text: $prompt)
+		STTextViewRepresentable(
+			text: $prompt,
+			onSubmit: {
+				shell.exec(prompt)
+				prompt = ""
+			}
+		)
+		.background(Color.accentColor.opacity(0.1))
+		.overlay(alignment: .top, content: {
+			Divider()
+		})
 
 //		HStack(alignment: .firstTextBaseline) {
 //			Text(">")

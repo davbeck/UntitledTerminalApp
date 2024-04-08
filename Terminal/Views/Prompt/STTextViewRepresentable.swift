@@ -8,6 +8,8 @@ struct STTextViewRepresentable: NSViewRepresentable {
 
 	@Binding var text: String
 
+	var onSubmit: () -> Void = {}
+
 	func makeCoordinator() -> Coordinator {
 		Coordinator(parent: self)
 	}
@@ -23,6 +25,8 @@ struct STTextViewRepresentable: NSViewRepresentable {
 			textView.delegate = context.coordinator
 			textView.widthTracksTextView = false
 			textView.heightTracksTextView = true
+
+			textView.font = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
 		}
 
 		return scrollView
@@ -77,6 +81,22 @@ extension STTextViewRepresentable.Coordinator: STTextViewDelegate {
 				self.parent.text = textView.string
 			}
 		}
+	}
+
+	nonisolated func textView(
+		_ textView: STTextView,
+		shouldChangeTextIn affectedCharRange: NSTextRange,
+		replacementString: String?
+	) -> Bool {
+		if replacementString?.count == 1, replacementString?.first?.isNewline == true && !NSEvent.modifierFlags.contains(.shift) {
+			MainActor.assumeIsolated {
+				parent.onSubmit()
+			}
+
+			return false
+		}
+
+		return true
 	}
 }
 
