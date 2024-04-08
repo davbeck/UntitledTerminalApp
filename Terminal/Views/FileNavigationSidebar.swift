@@ -40,16 +40,13 @@ struct FileNavigationSidebar: View {
 		}
 		.listStyle(.sidebar)
 		.task(id: directory) {
-			print("starting", directory)
 			do {
 				contents = try FileManager.default.contentsOfDirectory(
 					at: directory.standardizedFileURL,
 					includingPropertiesForKeys: .init(resourceKeys)
 				)
-				print("done", directory, contents)
 				self.error = nil
 			} catch {
-				print(error, directory)
 				self.error = error
 			}
 		}
