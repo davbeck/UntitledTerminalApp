@@ -1,4 +1,5 @@
 import SwiftUI
+import Shell
 
 @MainActor
 struct ContentView: View {

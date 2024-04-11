@@ -1,18 +1,16 @@
 import STTextView
 import STTextViewUI
 import SwiftUI
+import Shell
 
 struct PromptView: View {
-	var shell = Shell()
-
-	@State private var prompt: String = ""
+	@State var shell = Shell()
 
 	var body: some View {
 		STTextViewRepresentable(
-			text: $prompt,
+			text: $shell.input,
 			onSubmit: {
-				shell.exec(prompt)
-				prompt = ""
+				shell.exec()
 			}
 		)
 		.background(Color.accentColor.opacity(0.1))

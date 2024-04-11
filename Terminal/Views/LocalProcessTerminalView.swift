@@ -2,6 +2,7 @@ import AppKit
 import Foundation
 import SwiftTerm
 import SwiftUI
+import Shell
 
 struct LocalProcessTerminalView: NSViewRepresentable {
 	var shell: Shell

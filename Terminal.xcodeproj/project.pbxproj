@@ -15,10 +15,9 @@
 		111B31A52BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */; };
 		111B31B52BB51A3800A3F6C2 /* LocalProcessTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */; };
 		112C5A2E2BC3620C00FC0EAF /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112C5A2D2BC3620C00FC0EAF /* TextView.swift */; };
+		11383E772BC7A2F8005872C1 /* Shell in Frameworks */ = {isa = PBXBuildFile; productRef = 11383E762BC7A2F8005872C1 /* Shell */; };
 		11BB634A2BBC2E15005A1034 /* STTextViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB63492BBC2E15005A1034 /* STTextViewRepresentable.swift */; };
 		11E306342BB657770096084E /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 11E306332BB657770096084E /* SwiftTerm */; };
-		11E306362BB66BDF0096084E /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E306352BB66BDF0096084E /* Shell.swift */; };
-		11E306382BB66E560096084E /* Shell+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E306372BB66E560096084E /* Shell+Errors.swift */; };
 		11E3063C2BB7037D0096084E /* ShellSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 11E3063B2BB7037D0096084E /* ShellSyntax */; };
 		11E3064E2BB716870096084E /* FileNavigationSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E3064D2BB716870096084E /* FileNavigationSidebar.swift */; };
 		11E306512BB7C83C0096084E /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 11E306502BB7C83C0096084E /* Dependencies */; };
@@ -59,9 +58,8 @@
 		111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalProcessTerminalView.swift; sourceTree = "<group>"; };
 		112C5A2D2BC3620C00FC0EAF /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		11383E742BC7A2ED005872C1 /* Shell */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Shell; sourceTree = "<group>"; };
 		11BB63492BBC2E15005A1034 /* STTextViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTextViewRepresentable.swift; sourceTree = "<group>"; };
-		11E306352BB66BDF0096084E /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
-		11E306372BB66E560096084E /* Shell+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shell+Errors.swift"; sourceTree = "<group>"; };
 		11E306392BB7015D0096084E /* Terminal.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Terminal.xctestplan; sourceTree = "<group>"; };
 		11E3064D2BB716870096084E /* FileNavigationSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNavigationSidebar.swift; sourceTree = "<group>"; };
 		11E3065A2BB90ECC0096084E /* PromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptView.swift; sourceTree = "<group>"; };
@@ -73,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11383E772BC7A2F8005872C1 /* Shell in Frameworks */,
 				11E306632BB9FC920096084E /* CodeEditSourceEditor in Frameworks */,
 				11E306602BB9F31A0096084E /* CodeEditTextView in Frameworks */,
 				11E306512BB7C83C0096084E /* Dependencies in Frameworks */,
@@ -103,10 +102,12 @@
 			isa = PBXGroup;
 			children = (
 				11E306392BB7015D0096084E /* Terminal.xctestplan */,
+				11383E742BC7A2ED005872C1 /* Shell */,
 				111B31852BB5162300A3F6C2 /* Terminal */,
 				111B31972BB5162500A3F6C2 /* TerminalTests */,
 				111B31A12BB5162500A3F6C2 /* TerminalUITests */,
 				111B31842BB5162300A3F6C2 /* Products */,
+				11383E752BC7A2F8005872C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,8 +126,6 @@
 			children = (
 				111B31862BB5162300A3F6C2 /* TerminalApp.swift */,
 				11E306522BB7C84F0096084E /* Views */,
-				11E306352BB66BDF0096084E /* Shell.swift */,
-				11E306372BB66E560096084E /* Shell+Errors.swift */,
 				111B318A2BB5162500A3F6C2 /* Assets.xcassets */,
 				111B318F2BB5162500A3F6C2 /* Terminal.entitlements */,
 				111B318C2BB5162500A3F6C2 /* Preview Content */,
@@ -157,6 +156,13 @@
 				111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */,
 			);
 			path = TerminalUITests;
+			sourceTree = "<group>";
+		};
+		11383E752BC7A2F8005872C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		11E306522BB7C84F0096084E /* Views */ = {
@@ -203,6 +209,7 @@
 				11E3065F2BB9F31A0096084E /* CodeEditTextView */,
 				11E306622BB9FC920096084E /* CodeEditSourceEditor */,
 				11EDB52B2BBD90140053DF88 /* STTextView */,
+				11383E762BC7A2F8005872C1 /* Shell */,
 			);
 			productName = Terminal;
 			productReference = 111B31832BB5162300A3F6C2 /* Terminal.app */;
@@ -279,7 +286,6 @@
 			mainGroup = 111B317A2BB5162300A3F6C2;
 			packageReferences = (
 				11E306322BB657770096084E /* XCRemoteSwiftPackageReference "SwiftTerm" */,
-				11E3063F2BB703F60096084E /* XCLocalSwiftPackageReference "ShellSyntax" */,
 				11E3064F2BB7C83B0096084E /* XCRemoteSwiftPackageReference "swift-dependencies" */,
 				11E3065E2BB9F31A0096084E /* XCRemoteSwiftPackageReference "CodeEditTextView" */,
 				11E306612BB9FC920096084E /* XCLocalSwiftPackageReference "../../forked/CodeEditSourceEditor" */,
@@ -331,8 +337,6 @@
 				112C5A2E2BC3620C00FC0EAF /* TextView.swift in Sources */,
 				11BB634A2BBC2E15005A1034 /* STTextViewRepresentable.swift in Sources */,
 				11E3064E2BB716870096084E /* FileNavigationSidebar.swift in Sources */,
-				11E306362BB66BDF0096084E /* Shell.swift in Sources */,
-				11E306382BB66E560096084E /* Shell+Errors.swift in Sources */,
 				111B31892BB5162300A3F6C2 /* ContentView.swift in Sources */,
 				111B31872BB5162300A3F6C2 /* TerminalApp.swift in Sources */,
 				111B31B52BB51A3800A3F6C2 /* LocalProcessTerminalView.swift in Sources */,
@@ -663,10 +667,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		11E3063F2BB703F60096084E /* XCLocalSwiftPackageReference "ShellSyntax" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ShellSyntax;
-		};
 		11E306612BB9FC920096084E /* XCLocalSwiftPackageReference "../../forked/CodeEditSourceEditor" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../forked/CodeEditSourceEditor;
@@ -705,6 +705,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		11383E762BC7A2F8005872C1 /* Shell */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Shell;
+		};
 		11E306332BB657770096084E /* SwiftTerm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 11E306322BB657770096084E /* XCRemoteSwiftPackageReference "SwiftTerm" */;

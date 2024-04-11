@@ -1,5 +1,5 @@
 {
-  "originHash" : "14dca03b5bfd522bde1159bcd72e3d2de6f0af61d19afc476ae7281796e98f36",
+  "originHash" : "57b1be9f8beac7046bd68e72abca3091783a7d795e0a3b4227e9ca2c49d93827",
   "pins" : [
     {
       "identity" : "codeeditlanguages",
@@ -56,6 +56,24 @@
       }
     },
     {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "46989693916f56d1186bd59ac15124caef896560",
+        "version" : "1.3.1"
+      }
+    },
+    {
+      "identity" : "swift-case-paths",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-case-paths",
+      "state" : {
+        "revision" : "79623dbe2c7672f5e450d8325613d231454390b3",
+        "version" : "1.3.2"
+      }
+    },
+    {
       "identity" : "swift-clocks",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-clocks",
@@ -89,6 +107,15 @@
       "state" : {
         "revision" : "d3a5af3038a09add4d7682f66555d6212058a3c0",
         "version" : "1.2.2"
+      }
+    },
+    {
+      "identity" : "swift-parsing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-parsing.git",
+      "state" : {
+        "revision" : "a0e7d73f462c1c38c59dc40a3969ac40cea42950",
+        "version" : "0.13.0"
       }
     },
     {

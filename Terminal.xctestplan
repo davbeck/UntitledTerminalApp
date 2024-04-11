@@ -33,6 +33,14 @@
         "identifier" : "111B319D2BB5162500A3F6C2",
         "name" : "TerminalUITests"
       }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Shell",
+        "identifier" : "ShellSyntaxTests",
+        "name" : "ShellSyntaxTests"
+      }
     }
   ],
   "version" : 1
