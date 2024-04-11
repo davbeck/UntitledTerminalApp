@@ -7,7 +7,7 @@ struct PromptView: View {
 	@State var shell = Shell()
 
 	var body: some View {
-		STTextViewRepresentable(
+		PromptTextViewRepresentable(
 			text: $shell.input,
 			onSubmit: {
 				shell.exec()

@@ -2,7 +2,8 @@ import AppKit
 import Foundation
 import STTextView
 
-class TextView: STTextView {
+class PromptTextView: STTextView {
+	// copied from super because private
 	private var scrollView: NSScrollView? {
 		guard let result = enclosingScrollView, result.documentView == self else {
 			return nil
@@ -10,9 +11,15 @@ class TextView: STTextView {
 		return result
 	}
 
+	// mostly a copy of super, but with 1 change
 	override func sizeToFit() {
+		// called because _configureTextContainerSize is private
 		super.sizeToFit()
 
+		// this is the biggest change
+		// original: `var size = textLayoutManager.usageBoundsForTextContainer.size`
+		// NSTextLayoutManager does not seem to shrink it's bounds back down after deleting the last line
+		// not sure if that's a bug or a feature, but to get exact sizing, we use the layout fragments to get actual rendered bounds
 		var size = CGSize(width: 0, height: 0)
 		textLayoutManager.enumerateTextLayoutFragments(
 			from: nil,
@@ -38,6 +45,7 @@ class TextView: STTextView {
 
 		if isVerticallyResizable {
 			if scrollView == nil {
+				// this comment is in the original implimentation, but the check for scrollView isn't
 				// we should at least be our frame size if we're not in a clip view
 				size.height = max(frame.size.height - verticalInsets, size.height)
 			}

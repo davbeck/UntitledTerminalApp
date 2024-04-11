@@ -3,7 +3,7 @@ import Combine
 import STTextView
 import SwiftUI
 
-struct STTextViewRepresentable: NSViewRepresentable {
+struct PromptTextViewRepresentable: NSViewRepresentable {
 	typealias NSViewType = NSScrollView
 
 	@Binding var text: String
@@ -15,7 +15,7 @@ struct STTextViewRepresentable: NSViewRepresentable {
 	}
 
 	func makeNSView(context: Context) -> NSViewType {
-		let scrollView = TextView.scrollableTextView()
+		let scrollView = PromptTextView.scrollableTextView()
 
 		scrollView.automaticallyAdjustsContentInsets = false
 		scrollView.contentInsets = .init(top: 5, left: 8, bottom: 5, right: 8)
@@ -62,15 +62,15 @@ struct STTextViewRepresentable: NSViewRepresentable {
 
 	@MainActor
 	class Coordinator {
-		var parent: STTextViewRepresentable
+		var parent: PromptTextViewRepresentable
 
-		init(parent: STTextViewRepresentable) {
+		init(parent: PromptTextViewRepresentable) {
 			self.parent = parent
 		}
 	}
 }
 
-extension STTextViewRepresentable.Coordinator: STTextViewDelegate {
+extension PromptTextViewRepresentable.Coordinator: STTextViewDelegate {
 	nonisolated func textViewDidChangeText(_ notification: Notification) {
 		MainActor.assumeIsolated {
 			guard let textView = notification.object as? STTextView else {
@@ -101,5 +101,5 @@ extension STTextViewRepresentable.Coordinator: STTextViewDelegate {
 }
 
 #Preview {
-	STTextViewRepresentable(text: .constant("ls -a"))
+	PromptTextViewRepresentable(text: .constant("ls -a"))
 }
