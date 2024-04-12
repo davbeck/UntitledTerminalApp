@@ -14,9 +14,10 @@
 		111B31A32BB5162500A3F6C2 /* TerminalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31A22BB5162500A3F6C2 /* TerminalUITests.swift */; };
 		111B31A52BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */; };
 		111B31B52BB51A3800A3F6C2 /* LocalProcessTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */; };
-		112C5A2E2BC3620C00FC0EAF /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112C5A2D2BC3620C00FC0EAF /* TextView.swift */; };
+		112C5A2E2BC3620C00FC0EAF /* PromptTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112C5A2D2BC3620C00FC0EAF /* PromptTextView.swift */; };
 		11383E772BC7A2F8005872C1 /* Shell in Frameworks */ = {isa = PBXBuildFile; productRef = 11383E762BC7A2F8005872C1 /* Shell */; };
-		11BB634A2BBC2E15005A1034 /* STTextViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB63492BBC2E15005A1034 /* STTextViewRepresentable.swift */; };
+		11383E7B2BC8DCB4005872C1 /* PromptHistorySelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11383E7A2BC8DCB4005872C1 /* PromptHistorySelection.swift */; };
+		11BB634A2BBC2E15005A1034 /* PromptTextViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB63492BBC2E15005A1034 /* PromptTextViewRepresentable.swift */; };
 		11E306342BB657770096084E /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 11E306332BB657770096084E /* SwiftTerm */; };
 		11E3063C2BB7037D0096084E /* ShellSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 11E3063B2BB7037D0096084E /* ShellSyntax */; };
 		11E3064E2BB716870096084E /* FileNavigationSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E3064D2BB716870096084E /* FileNavigationSidebar.swift */; };
@@ -57,9 +58,10 @@
 		111B31A22BB5162500A3F6C2 /* TerminalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalUITests.swift; sourceTree = "<group>"; };
 		111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalProcessTerminalView.swift; sourceTree = "<group>"; };
-		112C5A2D2BC3620C00FC0EAF /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		112C5A2D2BC3620C00FC0EAF /* PromptTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTextView.swift; sourceTree = "<group>"; };
 		11383E742BC7A2ED005872C1 /* Shell */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Shell; sourceTree = "<group>"; };
-		11BB63492BBC2E15005A1034 /* STTextViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTextViewRepresentable.swift; sourceTree = "<group>"; };
+		11383E7A2BC8DCB4005872C1 /* PromptHistorySelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptHistorySelection.swift; sourceTree = "<group>"; };
+		11BB63492BBC2E15005A1034 /* PromptTextViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTextViewRepresentable.swift; sourceTree = "<group>"; };
 		11E306392BB7015D0096084E /* Terminal.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Terminal.xctestplan; sourceTree = "<group>"; };
 		11E3064D2BB716870096084E /* FileNavigationSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNavigationSidebar.swift; sourceTree = "<group>"; };
 		11E3065A2BB90ECC0096084E /* PromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptView.swift; sourceTree = "<group>"; };
@@ -180,8 +182,9 @@
 			isa = PBXGroup;
 			children = (
 				11E3065A2BB90ECC0096084E /* PromptView.swift */,
-				11BB63492BBC2E15005A1034 /* STTextViewRepresentable.swift */,
-				112C5A2D2BC3620C00FC0EAF /* TextView.swift */,
+				11BB63492BBC2E15005A1034 /* PromptTextViewRepresentable.swift */,
+				112C5A2D2BC3620C00FC0EAF /* PromptTextView.swift */,
+				11383E7A2BC8DCB4005872C1 /* PromptHistorySelection.swift */,
 			);
 			path = Prompt;
 			sourceTree = "<group>";
@@ -334,12 +337,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				11E3065B2BB90ECC0096084E /* PromptView.swift in Sources */,
-				112C5A2E2BC3620C00FC0EAF /* TextView.swift in Sources */,
-				11BB634A2BBC2E15005A1034 /* STTextViewRepresentable.swift in Sources */,
+				112C5A2E2BC3620C00FC0EAF /* PromptTextView.swift in Sources */,
+				11BB634A2BBC2E15005A1034 /* PromptTextViewRepresentable.swift in Sources */,
 				11E3064E2BB716870096084E /* FileNavigationSidebar.swift in Sources */,
 				111B31892BB5162300A3F6C2 /* ContentView.swift in Sources */,
 				111B31872BB5162300A3F6C2 /* TerminalApp.swift in Sources */,
 				111B31B52BB51A3800A3F6C2 /* LocalProcessTerminalView.swift in Sources */,
+				11383E7B2BC8DCB4005872C1 /* PromptHistorySelection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

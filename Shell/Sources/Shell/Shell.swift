@@ -1,11 +1,14 @@
 import ArgumentParser
+import Dependencies
 import Foundation
 import ShellSyntax
-import Dependencies
 
 @Observable
 @MainActor
 public class Shell {
+	@ObservationIgnored
+	@Dependency(\.date.now) private var now
+
 	let builtins: [String: AsyncParsableCommand.Type] = [
 		"cd": CD.self,
 	]
@@ -17,12 +20,14 @@ public class Shell {
 
 	public var environment: [String: String]
 
+	public var history: [CommandHistoryItem] = []
+
 	@ObservationIgnored
 	public var startProcess: (_ executable: String, _ arguments: [String], _ environment: [String], _ workingDirectory: String) -> Void = { _, _, _, _ in }
 	@ObservationIgnored
 	public var feed: (_ text: String) -> Void = { _ in }
-
-	public var input = ""
+	
+	public let sessionID = UUID()
 
 	public init() {
 		// TODO: load env from /etc/paths, /etc/paths.d and configs
@@ -32,15 +37,14 @@ public class Shell {
 		environment["LANG"] = "en_US.UTF-8"
 	}
 
-	public func exec() {
-		let input = self.input
-		self.input = ""
+	public func exec(input: String) {
+		let start = now
 
 		Task {
 			self.feed("> " + input + "\r\n")
 
 			do {
-				try await self.exec(input)
+				try await self._exec(parse(input))
 			} catch {
 				if let error = error as? ShellError {
 					feed(error.feedOutput)
@@ -49,6 +53,17 @@ public class Shell {
 				}
 				feed("\r\n")
 			}
+
+			let end = now
+			let historyItem = CommandHistoryItem(
+				id: history.count,
+				sessionID: sessionID,
+				input: input,
+				start: start,
+				end: end,
+				exitCode: 0 // TODO
+			)
+			self.history.append(historyItem)
 		}
 	}
 
@@ -58,12 +73,6 @@ public class Shell {
 		} catch {
 			throw ParseError(underlyingError: error)
 		}
-	}
-
-	private func exec(_ input: String) async throws {
-		let command = try parse(input)
-
-		try await self.exec(command)
 	}
 
 	private func interpret(_ word: WordToken) async throws -> String {
@@ -100,7 +109,7 @@ public class Shell {
 		}
 	}
 
-	private func exec(_ command: CommandSyntax) async throws {
+	private func _exec(_ command: CommandSyntax) async throws {
 		let commandName = try await self.interpret(command.executable)
 		var arguments: [String] = []
 		for argument in command.arguments {
@@ -116,7 +125,7 @@ public class Shell {
 			}
 		} else {
 			let executable = try await self.resolve(command: commandName)
-			
+
 			startProcess(
 				executable,
 				arguments,
@@ -124,5 +133,29 @@ public class Shell {
 				workingDirectory.path()
 			)
 		}
+	}
+
+	// MARK: - History
+
+	public func historyItemBefore(_ item: CommandHistoryItem?, query: String) async -> CommandHistoryItem? {
+		if let item {
+			guard 
+				let index = history.firstIndex(where: { $0.id == item.id }),
+				index > 0
+			else { return nil }
+			
+			return history[index - 1]
+		} else {
+			return history.last
+		}
+	}
+
+	public func historyItemAfter(_ item: CommandHistoryItem, query: String) async -> CommandHistoryItem? {
+		guard
+			let index = history.firstIndex(where: { $0.id == item.id }),
+			index + 1 < history.endIndex
+		else { return nil }
+		
+		return history[index + 1]
 	}
 }

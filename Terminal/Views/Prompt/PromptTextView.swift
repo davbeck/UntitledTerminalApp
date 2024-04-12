@@ -1,8 +1,14 @@
 import AppKit
 import Foundation
+import Shell
 import STTextView
 
+@MainActor
 class PromptTextView: STTextView {
+	var shell: Shell?
+
+	var promptHistorySelection: PromptHistorySelection?
+
 	// copied from super because private
 	private var scrollView: NSScrollView? {
 		guard let result = enclosingScrollView, result.documentView == self else {
@@ -66,6 +72,91 @@ class PromptTextView: STTextView {
 
 		if !frame.size.isAlmostEqual(to: size) {
 			self.setFrameSize(size)
+		}
+	}
+
+	override func shouldChangeText(in affectedTextRange: NSTextRange, replacementString: String?) -> Bool {
+		if replacementString?.count == 1, replacementString?.first?.isNewline == true && !NSEvent.modifierFlags.contains(.shift) {
+			let input = self.string
+			self.string = ""
+			shell?.exec(input: input)
+
+			return false
+		}
+
+		return true
+	}
+
+	override func keyDown(with event: NSEvent) {
+		historyTask = nil
+
+		let text = self.string
+		if
+			event.specialKey == .upArrow,
+			let selectedRange = Range(self.selectedRange(), in: text),
+			!text.prefix(upTo: selectedRange.lowerBound).contains(where: \.isNewline)
+		{
+			self.moveHistoryBack()
+		} else if
+			event.specialKey == .downArrow,
+			promptHistorySelection != nil
+		{
+			self.moveHistoryForward()
+		} else {
+			super.keyDown(with: event)
+		}
+	}
+
+	private var historyTask: Task<Void, Never>? {
+		didSet {
+			oldValue?.cancel()
+		}
+	}
+
+	private func moveHistoryBack() {
+		guard let shell else { return }
+
+		let query = promptHistorySelection?.query ?? string
+		historyTask = Task {
+			let item = await shell.historyItemBefore(
+				promptHistorySelection?.item,
+				query: query
+			)
+
+			guard !Task.isCancelled else { return }
+
+			if let item {
+				self.string = item.input
+				self.promptHistorySelection = .init(query: query, item: item)
+
+				self.selectAndShow(NSRange(location: self.string.utf16.count, length: 0))
+			} else {
+				// TODO: flash
+			}
+		}
+	}
+
+	private func moveHistoryForward() {
+		guard let shell, let promptHistorySelection else { return }
+
+		let query = promptHistorySelection.query
+		historyTask = Task {
+			let item = await shell.historyItemAfter(
+				promptHistorySelection.item,
+				query: query
+			)
+
+			guard !Task.isCancelled else { return }
+
+			if let item {
+				self.string = item.input
+				self.promptHistorySelection = .init(query: query, item: item)
+			} else {
+				self.string = query
+				self.promptHistorySelection = nil
+			}
+
+			self.selectAndShow(NSRange(location: self.string.utf16.count, length: 0))
 		}
 	}
 }

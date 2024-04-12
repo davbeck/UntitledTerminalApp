@@ -2,13 +2,12 @@ import AppKit
 import Combine
 import STTextView
 import SwiftUI
+import Shell
 
 struct PromptTextViewRepresentable: NSViewRepresentable {
 	typealias NSViewType = NSScrollView
-
-	@Binding var text: String
-
-	var onSubmit: () -> Void = {}
+	
+	var shell: Shell
 
 	func makeCoordinator() -> Coordinator {
 		Coordinator(parent: self)
@@ -22,7 +21,6 @@ struct PromptTextViewRepresentable: NSViewRepresentable {
 
 		scrollView.hasHorizontalScroller = false
 		if let textView = scrollView.documentView as? STTextView {
-			textView.delegate = context.coordinator
 			textView.widthTracksTextView = false
 			textView.heightTracksTextView = true
 
@@ -35,11 +33,9 @@ struct PromptTextViewRepresentable: NSViewRepresentable {
 	func updateNSView(_ scrollView: NSViewType, context: Context) {
 		context.coordinator.parent = self
 
-		guard let textView = scrollView.documentView as? STTextView else { return }
-
-		if textView.string != text {
-			textView.string = text
-		}
+		guard let textView = scrollView.documentView as? PromptTextView else { return }
+		
+		textView.shell = shell
 	}
 
 	func sizeThatFits(_ proposal: ProposedViewSize, nsView scrollView: NSViewType, context: Context) -> CGSize? {
@@ -68,38 +64,4 @@ struct PromptTextViewRepresentable: NSViewRepresentable {
 			self.parent = parent
 		}
 	}
-}
-
-extension PromptTextViewRepresentable.Coordinator: STTextViewDelegate {
-	nonisolated func textViewDidChangeText(_ notification: Notification) {
-		MainActor.assumeIsolated {
-			guard let textView = notification.object as? STTextView else {
-				return
-			}
-
-			if self.parent.text != textView.string {
-				self.parent.text = textView.string
-			}
-		}
-	}
-
-	nonisolated func textView(
-		_ textView: STTextView,
-		shouldChangeTextIn affectedCharRange: NSTextRange,
-		replacementString: String?
-	) -> Bool {
-		if replacementString?.count == 1, replacementString?.first?.isNewline == true && !NSEvent.modifierFlags.contains(.shift) {
-			MainActor.assumeIsolated {
-				parent.onSubmit()
-			}
-
-			return false
-		}
-
-		return true
-	}
-}
-
-#Preview {
-	PromptTextViewRepresentable(text: .constant("ls -a"))
 }

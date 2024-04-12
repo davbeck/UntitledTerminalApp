@@ -1,22 +1,17 @@
+import Shell
 import STTextView
 import STTextViewUI
 import SwiftUI
-import Shell
 
 struct PromptView: View {
 	@State var shell = Shell()
 
 	var body: some View {
-		PromptTextViewRepresentable(
-			text: $shell.input,
-			onSubmit: {
-				shell.exec()
-			}
-		)
-		.background(Color.accentColor.opacity(0.1))
-		.overlay(alignment: .top, content: {
-			Divider()
-		})
+		PromptTextViewRepresentable(shell: shell)
+			.background(Color.accentColor.opacity(0.1))
+			.overlay(alignment: .top, content: {
+				Divider()
+			})
 
 //		HStack(alignment: .firstTextBaseline) {
 //			Text(">")
