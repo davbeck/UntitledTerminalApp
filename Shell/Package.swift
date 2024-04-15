@@ -21,6 +21,7 @@ let package = Package(
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.3.1"),
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.2.2"),
 		.package(url: "https://github.com/pointfreeco/swift-concurrency-extras.git", from: "1.1.0"),
+		.package(url: "https://github.com/Lighter-swift/Lighter.git", from: "1.2.4"),
 	],
 	targets: [
 		.target(
@@ -30,9 +31,13 @@ let package = Package(
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
+				.product(name: "Lighter", package: "lighter"),
 			],
 			swiftSettings: [
 				.enableExperimentalFeature("StrictConcurrency"),
+			],
+			plugins: [
+				.plugin(name: "Enlighter", package: "Lighter"),
 			]
 		),
 		.target(

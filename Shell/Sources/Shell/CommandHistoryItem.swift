@@ -1,30 +1,21 @@
 import Foundation
 
-public struct CommandHistoryItem: Sendable {
-	public var id: Int
+public protocol CommandHistoryItem: Sendable {
+	var input: String { get }
+	
+	var start: Date { get }
 
-	public var sessionID: UUID
+	var end: Date { get }
 
-	public var input: String
+	var exitCode: Int { get }
+}
 
-	public var start: Date
-	public var end: Date
+extension Item: CommandHistoryItem {
+	public var start: Date {
+		Date(timeIntervalSince1970: self.startTimestamp)
+	}
 
-	public var exitCode: Int
-
-	public init(
-		id: Int,
-		sessionID: UUID,
-		input: String,
-		start: Date,
-		end: Date,
-		exitCode: Int
-	) {
-		self.id = id
-		self.sessionID = sessionID
-		self.input = input
-		self.start = start
-		self.end = end
-		self.exitCode = exitCode
+	public var end: Date {
+		Date(timeIntervalSince1970: self.endTimestamp)
 	}
 }

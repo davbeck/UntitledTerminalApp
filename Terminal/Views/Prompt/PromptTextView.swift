@@ -116,6 +116,7 @@ class PromptTextView: STTextView {
 	private func moveHistoryBack() {
 		guard let shell else { return }
 
+		let promptHistorySelection = self.promptHistorySelection
 		let query = promptHistorySelection?.query ?? string
 		historyTask = Task {
 			let item = await shell.historyItemBefore(

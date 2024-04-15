@@ -1,5 +1,5 @@
 {
-  "originHash" : "ce9d03c2aa7d71e00b6a30545b2e0c4670670127ca524496ed26d998ad70eab1",
+  "originHash" : "09a12c790501311b8a034b28fd0488141782a9ddf9ce30a23876dbc8bb4300da",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "9dc9cbe4bc45c65164fa653a563d8d8db61b09bb",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "lighter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Lighter-swift/Lighter.git",
+      "state" : {
+        "revision" : "cbf71d017d5e71a9d6ddff8223de94339a69f8d4",
+        "version" : "1.2.4"
       }
     },
     {

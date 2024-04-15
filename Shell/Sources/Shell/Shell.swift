@@ -2,10 +2,13 @@ import ArgumentParser
 import Dependencies
 import Foundation
 import ShellSyntax
+import OSLog
 
 @Observable
 @MainActor
 public class Shell {
+	private let logger: Logger
+	
 	@ObservationIgnored
 	@Dependency(\.date.now) private var now
 
@@ -20,16 +23,36 @@ public class Shell {
 
 	public var environment: [String: String]
 
-	public var history: [CommandHistoryItem] = []
+	private var historyDB: Task<HistoryDB, Swift.Error>
 
 	@ObservationIgnored
 	public var startProcess: (_ executable: String, _ arguments: [String], _ environment: [String], _ workingDirectory: String) -> Void = { _, _, _, _ in }
 	@ObservationIgnored
 	public var feed: (_ text: String) -> Void = { _ in }
-	
+
 	public let sessionID = UUID()
 
 	public init() {
+		logger = Logger(subsystem: "co.davidbeck.Terminal", category: "driver")
+		historyDB = Task { [logger] in
+			do {
+				let userDataDirectory = URL.homeDirectory
+					.appending(component: ".local")
+					.appending(component: "share")
+					.appending(component: "swish")
+				logger.info("creating user data directory at '\(userDataDirectory.path())'")
+				try FileManager.default.createDirectory(at: userDataDirectory, withIntermediateDirectories: true)
+				
+				let historyURL = userDataDirectory
+					.appending(component: "history")
+					.appendingPathExtension("sqlite")
+				return try await HistoryDB.bootstrap(at: historyURL)
+			} catch {
+				logger.error("failed to bootstrap history: \(error)")
+				throw error
+			}
+		}
+		
 		// TODO: load env from /etc/paths, /etc/paths.d and configs
 		environment = ProcessInfo.processInfo.environment
 		environment["TERM"] = "xterm-256color"
@@ -54,16 +77,23 @@ public class Shell {
 				feed("\r\n")
 			}
 
+			await saveHistory(start: start, input: input)
+		}
+	}
+	
+	private func saveHistory(start: Date, input: String) async {
+		do {
 			let end = now
-			let historyItem = CommandHistoryItem(
-				id: history.count,
-				sessionID: sessionID,
+			let historyItem = Item(
+				sessionUuid: sessionID.uuidString,
 				input: input,
-				start: start,
-				end: end,
-				exitCode: 0 // TODO
+				startTimestamp: start.timeIntervalSince1970,
+				endTimestamp: end.timeIntervalSince1970,
+				exitCode: 0 // TODO:
 			)
-			self.history.append(historyItem)
+			_ = try await historyDB.value.insert(historyItem)
+		} catch {
+			logger.error("failed to save history: \(error)")
 		}
 	}
 
@@ -138,24 +168,46 @@ public class Shell {
 	// MARK: - History
 
 	public func historyItemBefore(_ item: CommandHistoryItem?, query: String) async -> CommandHistoryItem? {
-		if let item {
-			guard 
-				let index = history.firstIndex(where: { $0.id == item.id }),
-				index > 0
-			else { return nil }
-			
-			return history[index - 1]
-		} else {
-			return history.last
+		do {
+			return try await historyDB.value.readTransaction { [sessionID] tx in
+				if let item {
+					try tx.items.fetch(sql: """
+					SELECT *
+					FROM item
+					WHERE start_timestamp < \(item.start.timeIntervalSince1970)
+					ORDER BY session_uuid = \(sessionID.uuidString) DESC, start_timestamp DESC
+					LIMIT 1
+					""").first
+				} else {
+					try tx.items.fetch(sql: """
+					SELECT *
+					FROM item
+					ORDER BY session_uuid = \(sessionID.uuidString) DESC, start_timestamp DESC
+					LIMIT 1
+					""").first
+					//			return history.last
+				}
+			}
+		} catch {
+			logger.error("failed to read history: \(error)")
+			return nil
 		}
 	}
 
 	public func historyItemAfter(_ item: CommandHistoryItem, query: String) async -> CommandHistoryItem? {
-		guard
-			let index = history.firstIndex(where: { $0.id == item.id }),
-			index + 1 < history.endIndex
-		else { return nil }
-		
-		return history[index + 1]
+		do {
+			return try await historyDB.value.readTransaction { [sessionID] tx in
+				try tx.items.fetch(sql: """
+				SELECT *
+				FROM item
+				WHERE start_timestamp > \(item.start.timeIntervalSince1970)
+				ORDER BY session_uuid = \(sessionID.uuidString) ASC, start_timestamp ASC
+				LIMIT 1
+				""").first
+			}
+		} catch {
+			logger.error("failed to read history: \(error)")
+			return nil
+		}
 	}
 }
