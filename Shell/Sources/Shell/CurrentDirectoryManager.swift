@@ -15,17 +15,6 @@ public struct CurrentDirectoryManager: Sendable {
 		self._changeCurrentDirectory = changeCurrentDirectory
 	}
 
-	public init(_ fileManager: FileManager) {
-		self.init(
-			currentDirectory: {
-				URL(filePath: fileManager.currentDirectoryPath)
-			},
-			changeCurrentDirectory: { path in
-				fileManager.changeCurrentDirectoryPath(path.path())
-			}
-		)
-	}
-
 	public var currentDirectory: URL {
 		get async {
 			await _currentDirectory()
@@ -39,7 +28,14 @@ public struct CurrentDirectoryManager: Sendable {
 }
 
 extension CurrentDirectoryManager: DependencyKey {
-	public static let liveValue: CurrentDirectoryManager = .init(.default)
+	public static let liveValue: CurrentDirectoryManager = .init(
+		currentDirectory: {
+			URL(filePath: FileManager.default.currentDirectoryPath)
+		},
+		changeCurrentDirectory: { path in
+			FileManager.default.changeCurrentDirectoryPath(path.path())
+		}
+	)
 
 	public static let previewValue: CurrentDirectoryManager = {
 		let currentDirectory = ActorIsolated(URL(filePath: "/Users/previews", directoryHint: .isDirectory))
