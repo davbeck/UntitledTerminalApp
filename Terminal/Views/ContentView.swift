@@ -1,21 +1,22 @@
-import SwiftUI
 import Shell
+import SwiftUI
 
 @MainActor
 struct ContentView: View {
-	@State private var shell = Shell()
+	@State private var session = SessionCoordinator()
 
 	var body: some View {
 		NavigationSplitView {
-			FileNavigationSidebar(directory: shell.workingDirectory)
+			FileNavigationSidebar(directory: session.storage.currentDirectory)
 		} detail: {
 			VStack(spacing: 0) {
-				LocalProcessTerminalView(shell: shell)
+				LocalProcessTerminalView()
 					.clipped()
 
-				PromptView(shell: shell)
+				PromptView()
 			}
 		}
+		.environment(session)
 	}
 }
 

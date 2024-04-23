@@ -23,10 +23,11 @@ struct CD: AsyncParsableCommand, Sendable {
 	@Argument var dir: String
 
 	mutating func run() async throws {
-		@Dependency(\.currentDirectoryManager) var currentDirectoryManager
+		@Dependency(\.fileManager) var fileManager
+		let storage = ShellDriver.currentShellStorage
 
 		let path = dir
-		let currentDirectory = await currentDirectoryManager.currentDirectory
+		let currentDirectory = await storage.getCurrentDirectory()
 
 		guard
 			let directory = URL(
@@ -37,23 +38,18 @@ struct CD: AsyncParsableCommand, Sendable {
 			throw InvalidPath(path: path)
 		}
 
-		var isDirectory: ObjCBool = false
-		guard
-			FileManager.default.fileExists(
-				atPath: directory.path(),
-				isDirectory: &isDirectory
-			)
-		else {
+		let presence = await fileManager.fileExists(at: directory)
+		switch presence {
+		case .none:
 			throw DirectoryDoesNotExist(path: directory.path())
-		}
-		guard isDirectory.boolValue else {
+		case .file:
 			throw NotADirectory(path: directory.path())
-		}
+		case .directory:
+			let success = await storage.changeCurrentDirectory(directory)
 
-		let success = await currentDirectoryManager.changeCurrentDirectory(directory)
-
-		guard success else {
-			throw FailedToChangeDirectory(path: directory.path())
+			guard success else {
+				throw FailedToChangeDirectory(path: directory.path())
+			}
 		}
 	}
 }

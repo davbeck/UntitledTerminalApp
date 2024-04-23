@@ -1,13 +1,13 @@
 import AppKit
 import Combine
+import Shell
 import STTextView
 import SwiftUI
-import Shell
 
 struct PromptTextViewRepresentable: NSViewRepresentable {
 	typealias NSViewType = NSScrollView
-	
-	var shell: Shell
+
+	@Environment(SessionCoordinator.self) private var sessionCoordinator
 
 	func makeCoordinator() -> Coordinator {
 		Coordinator(parent: self)
@@ -34,8 +34,8 @@ struct PromptTextViewRepresentable: NSViewRepresentable {
 		context.coordinator.parent = self
 
 		guard let textView = scrollView.documentView as? PromptTextView else { return }
-		
-		textView.shell = shell
+
+		textView.shell = sessionCoordinator.shell
 	}
 
 	func sizeThatFits(_ proposal: ProposedViewSize, nsView scrollView: NSViewType, context: Context) -> CGSize? {

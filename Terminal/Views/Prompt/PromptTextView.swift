@@ -5,7 +5,7 @@ import STTextView
 
 @MainActor
 class PromptTextView: STTextView {
-	var shell: Shell?
+	var shell: ShellDriver?
 
 	var promptHistorySelection: PromptHistorySelection?
 

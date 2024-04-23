@@ -4,10 +4,8 @@ import STTextViewUI
 import SwiftUI
 
 struct PromptView: View {
-	@State var shell = Shell()
-
 	var body: some View {
-		PromptTextViewRepresentable(shell: shell)
+		PromptTextViewRepresentable()
 			.background(Color.accentColor.opacity(0.1))
 			.overlay(alignment: .top, content: {
 				Divider()

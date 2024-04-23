@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,16 +15,16 @@
 		111B31A52BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */; };
 		111B31B52BB51A3800A3F6C2 /* LocalProcessTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */; };
 		112C5A2E2BC3620C00FC0EAF /* PromptTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112C5A2D2BC3620C00FC0EAF /* PromptTextView.swift */; };
+		113416412BD017E2004AC7D4 /* STCompletion in Frameworks */ = {isa = PBXBuildFile; productRef = 113416402BD017E2004AC7D4 /* STCompletion */; };
+		113416432BD017E2004AC7D4 /* STTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 113416422BD017E2004AC7D4 /* STTextView */; };
+		113416452BD07550004AC7D4 /* SessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113416442BD07550004AC7D4 /* SessionCoordinator.swift */; };
 		11383E772BC7A2F8005872C1 /* Shell in Frameworks */ = {isa = PBXBuildFile; productRef = 11383E762BC7A2F8005872C1 /* Shell */; };
 		11383E7B2BC8DCB4005872C1 /* PromptHistorySelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11383E7A2BC8DCB4005872C1 /* PromptHistorySelection.swift */; };
 		11BB634A2BBC2E15005A1034 /* PromptTextViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB63492BBC2E15005A1034 /* PromptTextViewRepresentable.swift */; };
 		11E306342BB657770096084E /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 11E306332BB657770096084E /* SwiftTerm */; };
 		11E3063C2BB7037D0096084E /* ShellSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 11E3063B2BB7037D0096084E /* ShellSyntax */; };
 		11E3064E2BB716870096084E /* FileNavigationSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E3064D2BB716870096084E /* FileNavigationSidebar.swift */; };
-		11E306512BB7C83C0096084E /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 11E306502BB7C83C0096084E /* Dependencies */; };
 		11E3065B2BB90ECC0096084E /* PromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E3065A2BB90ECC0096084E /* PromptView.swift */; };
-		11E306602BB9F31A0096084E /* CodeEditTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 11E3065F2BB9F31A0096084E /* CodeEditTextView */; };
-		11E306632BB9FC920096084E /* CodeEditSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 11E306622BB9FC920096084E /* CodeEditSourceEditor */; };
 		11E3066A2BBA4C380096084E /* TerminalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E306692BBA4C380096084E /* TerminalTests.swift */; };
 		11EDB52C2BBD90140053DF88 /* STTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 11EDB52B2BBD90140053DF88 /* STTextView */; };
 /* End PBXBuildFile section */
@@ -59,6 +59,7 @@
 		111B31A42BB5162500A3F6C2 /* TerminalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		111B31B42BB51A3800A3F6C2 /* LocalProcessTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalProcessTerminalView.swift; sourceTree = "<group>"; };
 		112C5A2D2BC3620C00FC0EAF /* PromptTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTextView.swift; sourceTree = "<group>"; };
+		113416442BD07550004AC7D4 /* SessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCoordinator.swift; sourceTree = "<group>"; };
 		11383E742BC7A2ED005872C1 /* Shell */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Shell; sourceTree = "<group>"; };
 		11383E7A2BC8DCB4005872C1 /* PromptHistorySelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptHistorySelection.swift; sourceTree = "<group>"; };
 		11BB63492BBC2E15005A1034 /* PromptTextViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTextViewRepresentable.swift; sourceTree = "<group>"; };
@@ -74,11 +75,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				11383E772BC7A2F8005872C1 /* Shell in Frameworks */,
-				11E306632BB9FC920096084E /* CodeEditSourceEditor in Frameworks */,
-				11E306602BB9F31A0096084E /* CodeEditTextView in Frameworks */,
-				11E306512BB7C83C0096084E /* Dependencies in Frameworks */,
+				113416412BD017E2004AC7D4 /* STCompletion in Frameworks */,
 				11E3063C2BB7037D0096084E /* ShellSyntax in Frameworks */,
 				11E306342BB657770096084E /* SwiftTerm in Frameworks */,
+				113416432BD017E2004AC7D4 /* STTextView in Frameworks */,
 				11EDB52C2BBD90140053DF88 /* STTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,6 +170,7 @@
 		11E306522BB7C84F0096084E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				113416442BD07550004AC7D4 /* SessionCoordinator.swift */,
 				111B31882BB5162300A3F6C2 /* ContentView.swift */,
 				11E306662BBA44ED0096084E /* Prompt */,
 				11E3064D2BB716870096084E /* FileNavigationSidebar.swift */,
@@ -208,11 +209,10 @@
 			packageProductDependencies = (
 				11E306332BB657770096084E /* SwiftTerm */,
 				11E3063B2BB7037D0096084E /* ShellSyntax */,
-				11E306502BB7C83C0096084E /* Dependencies */,
-				11E3065F2BB9F31A0096084E /* CodeEditTextView */,
-				11E306622BB9FC920096084E /* CodeEditSourceEditor */,
 				11EDB52B2BBD90140053DF88 /* STTextView */,
 				11383E762BC7A2F8005872C1 /* Shell */,
+				113416402BD017E2004AC7D4 /* STCompletion */,
+				113416422BD017E2004AC7D4 /* STTextView */,
 			);
 			productName = Terminal;
 			productReference = 111B31832BB5162300A3F6C2 /* Terminal.app */;
@@ -289,10 +289,7 @@
 			mainGroup = 111B317A2BB5162300A3F6C2;
 			packageReferences = (
 				11E306322BB657770096084E /* XCRemoteSwiftPackageReference "SwiftTerm" */,
-				11E3064F2BB7C83B0096084E /* XCRemoteSwiftPackageReference "swift-dependencies" */,
-				11E3065E2BB9F31A0096084E /* XCRemoteSwiftPackageReference "CodeEditTextView" */,
-				11E306612BB9FC920096084E /* XCLocalSwiftPackageReference "../../forked/CodeEditSourceEditor" */,
-				11EDB52A2BBD90140053DF88 /* XCLocalSwiftPackageReference "../../forked/STTextView" */,
+				1134163F2BD017E2004AC7D4 /* XCRemoteSwiftPackageReference "STTextView" */,
 			);
 			productRefGroup = 111B31842BB5162300A3F6C2 /* Products */;
 			projectDirPath = "";
@@ -337,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11E3065B2BB90ECC0096084E /* PromptView.swift in Sources */,
+				113416452BD07550004AC7D4 /* SessionCoordinator.swift in Sources */,
 				112C5A2E2BC3620C00FC0EAF /* PromptTextView.swift in Sources */,
 				11BB634A2BBC2E15005A1034 /* PromptTextViewRepresentable.swift in Sources */,
 				11E3064E2BB716870096084E /* FileNavigationSidebar.swift in Sources */,
@@ -670,18 +668,15 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		11E306612BB9FC920096084E /* XCLocalSwiftPackageReference "../../forked/CodeEditSourceEditor" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../forked/CodeEditSourceEditor;
-		};
-		11EDB52A2BBD90140053DF88 /* XCLocalSwiftPackageReference "../../forked/STTextView" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../forked/STTextView;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
+		1134163F2BD017E2004AC7D4 /* XCRemoteSwiftPackageReference "STTextView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/STTextView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
 		11E306322BB657770096084E /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/davbeck/SwiftTerm.git";
@@ -690,25 +685,19 @@
 				revision = 8379709f939efecd8cb599467b92c20305fa3a04;
 			};
 		};
-		11E3064F2BB7C83B0096084E /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-dependencies.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.2;
-			};
-		};
-		11E3065E2BB9F31A0096084E /* XCRemoteSwiftPackageReference "CodeEditTextView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/CodeEditApp/CodeEditTextView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.7.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		113416402BD017E2004AC7D4 /* STCompletion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1134163F2BD017E2004AC7D4 /* XCRemoteSwiftPackageReference "STTextView" */;
+			productName = STCompletion;
+		};
+		113416422BD017E2004AC7D4 /* STTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1134163F2BD017E2004AC7D4 /* XCRemoteSwiftPackageReference "STTextView" */;
+			productName = STTextView;
+		};
 		11383E762BC7A2F8005872C1 /* Shell */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Shell;
@@ -722,20 +711,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 11E306322BB657770096084E /* XCRemoteSwiftPackageReference "SwiftTerm" */;
 			productName = ShellSyntax;
-		};
-		11E306502BB7C83C0096084E /* Dependencies */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 11E3064F2BB7C83B0096084E /* XCRemoteSwiftPackageReference "swift-dependencies" */;
-			productName = Dependencies;
-		};
-		11E3065F2BB9F31A0096084E /* CodeEditTextView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 11E3065E2BB9F31A0096084E /* XCRemoteSwiftPackageReference "CodeEditTextView" */;
-			productName = CodeEditTextView;
-		};
-		11E306622BB9FC920096084E /* CodeEditSourceEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CodeEditSourceEditor;
 		};
 		11EDB52B2BBD90140053DF88 /* STTextView */ = {
 			isa = XCSwiftPackageProductDependency;

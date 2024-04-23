@@ -30,6 +30,7 @@ let package = Package(
 				"ShellSyntax",
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "Dependencies", package: "swift-dependencies"),
+//				.product(name: "DependenciesMacros", package: "swift-dependencies"),
 				.product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
 				.product(name: "Lighter", package: "lighter"),
 			],

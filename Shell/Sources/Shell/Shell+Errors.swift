@@ -2,6 +2,14 @@ import Foundation
 
 protocol ShellError: Error {
 	var feedOutput: String { get }
+	
+	var exitCode: Int32 { get }
+}
+
+extension ShellError {
+	public var exitCode: Int32 {
+		-1
+	}
 }
 
 extension Error {
